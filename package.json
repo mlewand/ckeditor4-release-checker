@@ -1,0 +1,41 @@
+{
+  "name": "ckeditor4-release-checker",
+  "version": "0.1.0",
+  "description": "A simple tool for verifying CKE4 release.",
+  "homepage": "https://github.com/mlewand/ckeditor4-release-checker#readme",
+  "author": "Marek Lewandowski",
+  "files": [
+    "lib"
+  ],
+  "main": "test/index.js",
+  "keywords": [
+    ""
+  ],
+  "scripts": {
+    "test": "gulp",
+    "prepublish": "gulp prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlewand/ckeditor4-release-checker.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mlewand/ckeditor4-release-checker/issues"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.1.1",
+    "eslint-config-mlewand-node": "^0.1.0",
+    "github-api": "^3.0.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^1.0.0",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-nsp": "^2.1.0",
+    "gulp-plumber": "^1.0.0",
+    "node-fetch": "^1.7.0"
+  }
+}
