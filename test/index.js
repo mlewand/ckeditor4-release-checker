@@ -71,6 +71,26 @@ describe( 'CKEditor4 SDK', () => {
 	} );
 } );
 
+describe( 'CKEditor4 cdn', () => {
+	it( 'has a correct CKEditor verison', () => {
+		let presets = [ 'basic', 'standard', 'standard-all', 'full', 'full-all' ];
+
+		return Promise.all( presets.map( preset =>
+			fetch( `https://cdn.ckeditor.com/4.7.1/${preset}/ckeditor.js` )
+			.then( res => {
+				expect( res.status, `Response code for ${preset}` ).to.be.eql( 200 );
+				return res.text();
+			} )
+			.then( js => {
+				let actualVersionRegExp = /,version:\"(\d\.\d\.\d)/,
+					res = String( js ).match( actualVersionRegExp );
+
+				expect( res, preset ).to.be.an( 'array' );
+				expect( res[ 1 ], preset ).to.be.eql( version );
+			} ) ) );
+	} );
+} );
+
 describe( 'ckeditor.com', () => {
 	it( 'has a correct CKEditor verison', () => {
 		return fetch( 'http://ckeditor.com' )
