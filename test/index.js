@@ -1,7 +1,7 @@
 'use strict';
 
-const version = '4.7.0',
-	hash = '320013d5680d296b1e6c1240f96499bc71181552',
+const version = '4.7.1',
+	hash = '08ffd3961c9aabdb3654da47b415dc223b6c0c08', // ckeditor-dev revision
 	shortVersion = version.replace( /\.0$/, '' ),
 	fetch = require( 'node-fetch' ),
 	expect = require( 'chai' ).expect,
