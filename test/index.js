@@ -1,7 +1,7 @@
 'use strict';
 
-const version = '4.7.1',
-	hash = '08ffd3961c9aabdb3654da47b415dc223b6c0c08', // ckeditor-dev revision
+const version = '4.7.2',
+	hash = 'c9b79c94cce64f03105236f05781cbedeb8dd7e5', // ckeditor-dev revision
 	shortVersion = version.replace( /\.0$/, '' ),
 	fetch = require( 'node-fetch' ),
 	expect = require( 'chai' ).expect,
@@ -54,7 +54,9 @@ describe( 'CKEditor4 presets', () => {
 	} );
 } );
 
-describe( 'CKEditor4 SDK', () => {
+describe( 'CKEditor4 SDK', function() {
+	this.timeout( 5000 );
+
 	it( 'has a correct CKEditor verison', () => {
 		return fetch( 'http://sdk.ckeditor.com/vendor/ckeditor/ckeditor.js' )
 			.then( res => {
@@ -78,7 +80,7 @@ describe( 'CKEditor4 cdn', function() {
 		let presets = [ 'basic', 'standard', 'standard-all', 'full', 'full-all' ];
 
 		return Promise.all( presets.map( preset =>
-			fetch( `https://cdn.ckeditor.com/4.7.1/${preset}/ckeditor.js` )
+			fetch( `https://cdn.ckeditor.com/${version}/${preset}/ckeditor.js` )
 				.then( res => {
 					expect( res.status, `Response code for ${preset}` ).to.be.eql( 200 );
 					return res.text();
