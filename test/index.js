@@ -1,7 +1,7 @@
 'use strict';
 
-const version = '4.7.2',
-	hash = 'c9b79c94cce64f03105236f05781cbedeb8dd7e5', // ckeditor-dev revision
+const version = '4.11.1',
+	hash = 'c264cacc9d10a61ab83a299eac58c6976e48d97d', // ckeditor-dev revision
 	shortVersion = version.replace( /\.0$/, '' ),
 	fetch = require( 'node-fetch' ),
 	expect = require( 'chai' ).expect,
@@ -64,7 +64,7 @@ describe( 'CKEditor4 SDK', function() {
 				return res.text();
 			} )
 			.then( js => {
-				let actualVersionRegExp = /,version:\"(\d\.\d\.\d) /,
+				let actualVersionRegExp = /,version:\"(\d+\.\d+\.\d+) /,
 					res = String( js ).match( actualVersionRegExp );
 
 				expect( res ).to.be.an( 'array' );
@@ -74,36 +74,37 @@ describe( 'CKEditor4 SDK', function() {
 } );
 
 describe( 'CKEditor4 cdn', function() {
-	this.timeout( 5000 );
+	this.timeout( 20000 );
 
-	it( 'has a correct CKEditor verison', () => {
-		let presets = [ 'basic', 'standard', 'standard-all', 'full', 'full-all' ];
+	let presets = [ 'basic', 'standard', 'standard-all', 'full', 'full-all' ];
 
-		return Promise.all( presets.map( preset =>
-			fetch( `https://cdn.ckeditor.com/${version}/${preset}/ckeditor.js` )
+	for ( let preset of presets ) {
+		it( `has a correct CKEditor version for ${preset}`, () => {
+			return fetch( `https://cdn.ckeditor.com/${version}/${preset}/ckeditor.js` )
 				.then( res => {
 					expect( res.status, `Response code for ${preset}` ).to.be.eql( 200 );
 					return res.text();
 				} )
 				.then( js => {
-					let actualVersionRegExp = /,version:\"(\d\.\d\.\d)/,
+					let actualVersionRegExp = /,version:\"(\d+\.\d+\.\d+)/,
 						res = String( js ).match( actualVersionRegExp );
 
 					expect( res, preset ).to.be.an( 'array' );
 					expect( res[ 1 ], preset ).to.be.eql( version );
-				} ) ) );
-	} );
+				} );
+		} );
+	}
 } );
 
 describe( 'ckeditor.com', () => {
-	it( 'has a correct CKEditor verison', () => {
-		return fetch( 'http://ckeditor.com' )
+	it( 'has a correct CKEditor version', () => {
+		return fetch( 'http://ckeditor.com/ckeditor-4/' )
 			.then( res => {
 				expect( res.status, 'Response code' ).to.be.eql( 200 );
 				return res.text();
 			} )
 			.then( html => {
-				let actualVersionRegExp = /ckeditor4\/vendor\/ckeditor\/(\d\.\d\.\d)\/ckeditor\.js/,
+				let actualVersionRegExp = /\/assets\/libs\/ckeditor4\/(\d+\.\d+\.\d+)\/ckeditor\.js/,
 					res = String( html ).match( actualVersionRegExp );
 
 				expect( res ).to.be.an( 'array' );
